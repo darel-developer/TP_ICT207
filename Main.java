@@ -1,5 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,6 +56,22 @@ public class Main {
         // Créer un bouton de connexion
         JButton loginButton = new JButton("CONNEXION");
 
+        // Ajouter un écouteur d'événements au bouton de connexion
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                // Vérification des informations d'identification dans la base de données
+                if (validateLogin(username, password)) {
+                    JOptionPane.showMessageDialog(frame, "Connexion réussie !");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Nom d'utilisateur ou mot de passe incorrect !");
+                }
+            }
+        });
+
         // Ajouter le bouton de connexion au panneau
         contentPanel.add(loginButton, new GridBagConstraints(1, 3, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -67,5 +90,24 @@ public class Main {
 
         // Afficher la fenêtre
         frame.setVisible(true);
+    }
+
+    // Méthode pour valider les informations d'identification
+    private static boolean validateLogin(String username, String password) {
+        // Connexion à la base de données (C'est un exemple simplifié, tu devras configurer correctement la connexion à ta propre base de données)
+        String url = "jdbc:mysql://localhost:3306/gym";
+        String user = "root";
+        String dbPassword = "";
+        try (Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
+            String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // Si une ligne correspondante est trouvée, l'authentification est réussie
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
