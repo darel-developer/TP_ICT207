@@ -6,7 +6,7 @@ public class Pack {
         // Créer une fenêtre pour l'interface
         JFrame frame = new JFrame("Dashboard Admin");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(800, 500); // Ajustez la taille selon vos besoins
 
         // Panneau principal avec un BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -17,12 +17,12 @@ public class Pack {
         leftPanel.setBackground(new Color(50, 50, 50)); // Couleur d'arrière-plan
 
         // Créer les boutons pour le menu avec une police et une couleur différentes
-        JButton membreButton = createStyledButton("Membre");
-        JButton packButton = createStyledButton("Pack");
-        JButton listeButton = createStyledButton("Liste");
-        JButton jButton4 = createStyledButton("Button 4");
-        JButton jButton5 = createStyledButton("Button 5");
-        JButton deconnexionButton = createStyledButton("Déconnexion");
+        JButton membreButton = createStyledButton("Membre", "C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\new member.png");
+        JButton packButton = createStyledButton("Pack", "/path/to/pack.png");
+        JButton listeButton = createStyledButton("Liste", "C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\list of members.png");
+        JButton jButton4 = createStyledButton("Button 4", "/path/to/button4.png");
+        JButton jButton5 = createStyledButton("Button 5", "/path/to/button5.png");
+        JButton deconnexionButton = createStyledButton("Déconnexion", "C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\logout.png");
 
         // Ajouter les boutons au panneau gauche
         leftPanel.add(membreButton);
@@ -45,7 +45,7 @@ public class Pack {
         JTextField nomTextField = createStyledTextField();
         JTextField prixTextField = createStyledTextField();
         JTextField descriptionTextField = createStyledTextField();
-        JButton stockerButton = createStyledButton("Stocker en BD");
+        JButton stockerButton = createStyledButton("Stocker en BD","C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\save.png");
 
         // Ajouter les composants au panneau droit
         rightPanel.add(titleLabel);
@@ -68,18 +68,27 @@ public class Pack {
         frame.setVisible(true);
     }
 
-    private static JButton createStyledButton(String text) {
+
+
+    private static JButton createStyledButton(String text, String imagePath) {
         JButton button = new JButton(text);
         button.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Police de taille moyenne
         button.setForeground(Color.WHITE); // Texte en blanc
         button.setBackground(new Color(70, 70, 70)); // Couleur de fond gris foncé
         button.setFocusPainted(false); // Supprimer le contour de mise au point
+
+        // Ajouter une icône à partir du chemin d'image
+        if (!imagePath.isEmpty()) {
+            ImageIcon icon = new ImageIcon(imagePath);
+            button.setIcon(icon);
+        }
         return button;
     }
 
+
     private static JTextField createStyledTextField() {
         JTextField textField = new JTextField();
-        textField.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Police de taille moyenne
+        textField.setFont(new Font("Segoe UI", Font.PLAIN, 5)); // Police de taille moyenne
         textField.setBackground(new Color(220, 220, 220)); // Couleur de fond gris clair
         return textField;
     }
