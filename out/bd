@@ -1,0 +1,22 @@
+create database gym;
+
+create table admin(
+    username varchar(255),
+    password varchar(255)
+);
+
+create table pack(
+    nom varchar(255),
+    categorie varchar(255),
+    Description varchar(255),
+    duree varchar(255),
+    prix int
+);
+
+create table coach(
+    nom varchar(255),
+    prenom varchar(255),
+    sexe varchar(255),
+    contact varchar(255),
+    categorie varchar(255)
+);
