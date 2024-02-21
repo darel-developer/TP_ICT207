@@ -49,7 +49,17 @@ public class Pack {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
-                addFormFields(rightPanel);
+                addPackFormFields(rightPanel);
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
+
+        addCoachButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                addCoachFormFields(rightPanel);
                 rightPanel.revalidate();
                 rightPanel.repaint();
             }
@@ -76,7 +86,7 @@ public class Pack {
         return button;
     }
 
-    private static void addFormFields(JPanel panel) {
+    private static void addPackFormFields(JPanel panel) {
         String[] labels = {"Nom du Pack:", "Catégorie:", "Description:", "Durée:", "Prix:"};
         JTextField[] textFields = new JTextField[labels.length];
 
@@ -99,12 +109,40 @@ public class Pack {
                 String duree = textFields[3].getText();
                 int prix = Integer.parseInt(textFields[4].getText());
 
-                insertIntoDatabase(nom, categorie, description, duree, prix);
+                insertPackIntoDatabase(nom, categorie, description, duree, prix);
             }
         });
     }
 
-    private static void insertIntoDatabase(String nom, String categorie, String description, String duree, int prix) {
+    private static void addCoachFormFields(JPanel panel) {
+        String[] labels = {"Nom:", "Prénom:", "Sexe:", "Contact:", "Catégorie:"};
+        JTextField[] textFields = new JTextField[labels.length];
+
+        for (int i = 0; i < labels.length; i++) {
+            JLabel label = new JLabel(labels[i]);
+            JTextField textField = new JTextField();
+            panel.add(label);
+            panel.add(textField);
+            textFields[i] = textField;
+        }
+
+        JButton submitButton = new JButton("Submit");
+        panel.add(submitButton);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nom = textFields[0].getText();
+                String prenom = textFields[1].getText();
+                String sexe = textFields[2].getText();
+                String contact = textFields[3].getText();
+                String categorie = textFields[4].getText();
+
+                insertCoachIntoDatabase(nom, prenom, sexe, contact, categorie);
+            }
+        });
+    }
+
+    private static void insertPackIntoDatabase(String nom, String categorie, String description, String duree, int prix) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "INSERT INTO pack(nom, categorie, description, duree, prix) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -118,6 +156,23 @@ public class Pack {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de l'ajout du pack : " + ex.getMessage());
-}
-}
+        }
+    }
+
+    private static void insertCoachIntoDatabase(String nom, String prenom, String sexe, String contact, String categorie) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "INSERT INTO coach(nom, prenom, sexe, contact, categorie) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nom);
+            statement.setString(2, prenom);
+            statement.setString(3, sexe);
+            statement.setString(4, contact);
+            statement.setString(5, categorie);
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Le coach a été ajouté avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de l'ajout du coach : " + ex.getMessage());
+        }
+    }
 }
