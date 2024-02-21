@@ -22,12 +22,12 @@ public class Main {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         // Ajouter une image au bouton
-        ImageIcon closeButtonIcon = new ImageIcon("C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\close_icon.png"); // Remplacez le chemin de votre image
+        ImageIcon closeButtonIcon = new ImageIcon("C:\\Users\\Yvan Njanko\\OneDrive\\Bureau\\TP_ICT207\\Icon Gym Jframe\\close.png"); // Remplacez le chemin de votre image
         JButton closeButton = new JButton(closeButtonIcon);
         buttonPanel.add(closeButton);
 
         // Ajouter une image à gauche
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\darel\\Downloads\\Gym Icon Jframe\\Icon Gym Jframe\\OIP (1).jpg"); // Mettez le chemin de votre image
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\Yvan Njanko\\OneDrive\\Bureau\\TP_ICT207\\Icon Gym Jframe\\OIP (1).jpg"); // Mettez le chemin de votre image
         JLabel imageLabel = new JLabel(imageIcon);
         mainPanel.add(imageLabel, BorderLayout.WEST);
 
@@ -36,7 +36,7 @@ public class Main {
 
         // Créer le titre centré
         JLabel titleLabel = new JLabel("Bienvenue dans votre salle de sport");
-        titleLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 24));
+        titleLabel.setFont(new Font("Segoe UI Light", Font.ITALIC, 40));
 
         // Ajouter le titre centré au panneau
         contentPanel.add(titleLabel, new GridBagConstraints(0, 0, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
