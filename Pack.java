@@ -24,18 +24,21 @@ public class Pack {
         leftPanel.setLayout(new GridLayout(7, 1));
         leftPanel.setBackground(new Color(50, 50, 50));
 
-        JButton membreButton = createStyledButton("Membre", "./images/new member.png");
-        JButton packButton = createStyledButton("Pack", "/path/to/pack.png");
-        JButton listeButton = createStyledButton("Liste", "./images/list of members.png");
-        JButton jButton4 = createStyledButton("Button 4", "/path/to/button4.png");
-        JButton jButton5 = createStyledButton("Button 5", "/path/to/button5.png");
+        JButton membreButton = createStyledButton("New Member", "./images/new member.png");
+        JButton packButton = createStyledButton("Add Pack", "/path/to/pack.png");
+        JButton addCoachButton = createStyledButton("Add Coach", "/path/to/pack.png");
+
+        JButton listePackButton = createStyledButton("Pack List", "./images/list of members.png");
+        JButton listeCoachButton = createStyledButton("Coach List", "./images/list of members.png");
+        JButton listeMemberButton = createStyledButton("Member List", "./images/list of members.png");
         JButton deconnexionButton = createStyledButton("Déconnexion", "./images/logout.png");
 
         leftPanel.add(membreButton);
         leftPanel.add(packButton);
-        leftPanel.add(listeButton);
-        leftPanel.add(jButton4);
-        leftPanel.add(jButton5);
+        leftPanel.add(addCoachButton);
+        leftPanel.add(listePackButton);
+        leftPanel.add(listeCoachButton);
+        leftPanel.add(listeMemberButton);
         leftPanel.add(deconnexionButton);
 
         JPanel rightPanel = new JPanel();
