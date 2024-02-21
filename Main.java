@@ -73,13 +73,13 @@ public class Main {
                     frame.dispose(); // Ferme la fenêtre actuelle
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            new Pack(); // Crée et affiche une nouvelle fenêtre Pack
+                            // Crée et affiche une nouvelle fenêtre Pack
+                            new Pack().setVisible(true);
                         }
                     });
                 } else {
                     JOptionPane.showMessageDialog(frame, "Nom d'utilisateur ou mot de passe incorrect !");
                 }
-
             }
         });
 
@@ -165,4 +165,6 @@ class RoundedCornerBorder implements Border {
             return false;
         }
     }
+
+
 }

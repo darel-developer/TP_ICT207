@@ -7,13 +7,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Pack {
+public class Pack extends JFrame {
     // Définir les informations de connexion à la base de données
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
-    public static void main(String[] args) {
+    public Pack(){
         JFrame frame = new JFrame("Dashboard Admin");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
@@ -174,5 +174,16 @@ public class Pack {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de l'ajout du coach : " + ex.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Pack().setVisible(true);
+            }
+        });
+    }
+
+    public void setVisible(boolean b) {
     }
 }
