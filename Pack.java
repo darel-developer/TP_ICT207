@@ -186,11 +186,11 @@ public class Pack extends JFrame {
     }
 
     private static void displayPackList(JPanel panel) {
-        JTextArea packListArea = new JTextArea(20, 400);
+        JTextArea packListArea = new JTextArea(20, 40);
         packListArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(packListArea);
-        scrollPane.setPreferredSize(new Dimension(700, 400)); // Taille préférée du JScrollPane
-        panel.add(scrollPane);
+        panel.setLayout(new BorderLayout()); // Utilisation de BorderLayout
+        panel.add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "SELECT * FROM pack";
@@ -217,6 +217,7 @@ public class Pack extends JFrame {
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des packs : " + ex.getMessage());
         }
     }
+
 
 
 
