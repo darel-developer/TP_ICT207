@@ -7,6 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +26,7 @@ public class Main {
 
         // Ajouter une image au bouton
         ImageIcon closeButtonIcon = new ImageIcon("C:\\Users\\Yvan Njanko\\OneDrive\\Bureau\\TP_ICT207\\Icon Gym Jframe\\close.png"); // Remplacez le chemin de votre image
+
         JButton closeButton = new JButton(closeButtonIcon);
         buttonPanel.add(closeButton);
 
@@ -35,7 +39,7 @@ public class Main {
         JPanel contentPanel = new JPanel(new GridBagLayout());
 
         // Créer le titre centré
-        JLabel titleLabel = new JLabel("Bienvenue dans votre salle de sport");
+        JLabel titleLabel = new JLabel("Bienvenu dans votre salle de sport");
         titleLabel.setFont(new Font("Segoe UI Light", Font.ITALIC, 40));
 
         // Ajouter le titre centré au panneau
@@ -64,7 +68,7 @@ public class Main {
                 String password = new String(passwordField.getPassword());
 
                 // Vérification des informations d'identification dans la base de données
-                if (validateLogin(username, password)) {
+                if (RoundedCornerBorder.validateLogin(username, password)) {
                     JOptionPane.showMessageDialog(frame, "Connexion réussie !");
                 } else {
                     JOptionPane.showMessageDialog(frame, "Nom d'utilisateur ou mot de passe incorrect !");
@@ -92,9 +96,53 @@ public class Main {
         frame.setVisible(true);
     }
 
+    private static JTextField createRoundedTextField(int columns) {
+        JTextField textField = new JTextField(columns);
+        textField.setBorder(createRoundedBorder());
+        return textField;
+    }
+
+    private static JPasswordField createRoundedPasswordField(int columns) {
+        JPasswordField passwordField = new JPasswordField(columns);
+        passwordField.setBorder(createRoundedBorder());
+        return passwordField;
+    }
+
+    private static Border createRoundedBorder() {
+        int radius = 10; // Adjust the radius for the rounded corners
+        return new CompoundBorder(
+                new EmptyBorder(0, radius, 0, radius),
+                new RoundedCornerBorder(radius)
+        );
+    }
+}
+
+class RoundedCornerBorder implements Border {
+    private final int radius;
+
+    public RoundedCornerBorder(int radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+    }
+
+    @Override
+    public Insets getBorderInsets(Component c) {
+        return new Insets(radius, radius, radius, radius);
+    }
+
+    @Override
+    public boolean isBorderOpaque() {
+        return true;
+    }
+
     // Méthode pour valider les informations d'identification
-    private static boolean validateLogin(String username, String password) {
-        // Connexion à la base de données (C'est un exemple simplifié, tu devras configurer correctement la connexion à ta propre base de données)
+    public static boolean validateLogin(String username, String password) {
+        // Connexion à la base de données)
         String url = "jdbc:mysql://localhost:3306/gym";
         String user = "root";
         String dbPassword = "";
