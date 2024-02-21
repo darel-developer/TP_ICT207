@@ -25,13 +25,13 @@ public class Main {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         // Ajouter une image au bouton
-        ImageIcon closeButtonIcon = new ImageIcon("C:\\Users\\Yvan Njanko\\OneDrive\\Bureau\\TP_ICT207\\Icon Gym Jframe\\close.png"); // Remplacez le chemin de votre image
+        ImageIcon closeButtonIcon = new ImageIcon("./images/close.png"); // Remplacez le chemin de votre image
 
         JButton closeButton = new JButton(closeButtonIcon);
         buttonPanel.add(closeButton);
 
         // Ajouter une image à gauche
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\Yvan Njanko\\OneDrive\\Bureau\\TP_ICT207\\Icon Gym Jframe\\OIP (1).jpg"); // Mettez le chemin de votre image
+        ImageIcon imageIcon = new ImageIcon("./images/OIP (1).jpg"); // Mettez le chemin de votre image
         JLabel imageLabel = new JLabel(imageIcon);
         mainPanel.add(imageLabel, BorderLayout.WEST);
 
@@ -70,9 +70,16 @@ public class Main {
                 // Vérification des informations d'identification dans la base de données
                 if (RoundedCornerBorder.validateLogin(username, password)) {
                     JOptionPane.showMessageDialog(frame, "Connexion réussie !");
+                    frame.dispose(); // Ferme la fenêtre actuelle
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            new Pack(); // Crée et affiche une nouvelle fenêtre Pack
+                        }
+                    });
                 } else {
                     JOptionPane.showMessageDialog(frame, "Nom d'utilisateur ou mot de passe incorrect !");
                 }
+
             }
         });
 
