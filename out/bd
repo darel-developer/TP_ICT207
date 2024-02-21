@@ -20,3 +20,13 @@ create table coach(
     contact varchar(255),
     categorie varchar(255)
 );
+
+create table client(
+    nom varchar(255),
+    prenom varchar(255),
+    sexe varchar(255),
+    contact varchar(255),
+    pack varchar(255),
+    coach varchar(255),
+    statuPaiement boolean
+);

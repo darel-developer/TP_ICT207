@@ -2,10 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Pack extends JFrame {
     // Définir les informations de connexion à la base de données
@@ -45,11 +42,23 @@ public class Pack extends JFrame {
         rightPanel.setLayout(new GridLayout(6, 2));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+
+
         packButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
                 addPackFormFields(rightPanel);
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
+
+        listePackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                displayPackList(rightPanel);
                 rightPanel.revalidate();
                 rightPanel.repaint();
             }
@@ -175,6 +184,41 @@ public class Pack extends JFrame {
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de l'ajout du coach : " + ex.getMessage());
         }
     }
+
+    private static void displayPackList(JPanel panel) {
+        JTextArea packListArea = new JTextArea(20, 400);
+        packListArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(packListArea);
+        scrollPane.setPreferredSize(new Dimension(700, 400)); // Taille préférée du JScrollPane
+        panel.add(scrollPane);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM pack";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            StringBuilder packListText = new StringBuilder();
+            while (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String categorie = resultSet.getString("categorie");
+                String description = resultSet.getString("description");
+                String duree = resultSet.getString("duree");
+                int prix = resultSet.getInt("prix");
+
+                packListText.append("Nom: ").append(nom).append("\n");
+                packListText.append("Catégorie: ").append(categorie).append("\n");
+                packListText.append("Description: ").append(description).append("\n");
+                packListText.append("Durée: ").append(duree).append("\n");
+                packListText.append("Prix: ").append(prix).append("\n\n");
+            }
+            packListArea.setText(packListText.toString());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des packs : " + ex.getMessage());
+        }
+    }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

@@ -1142,7 +1142,7 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     </collation>
     <schema id="324" parent="1" name="gym">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-02-21.14:42:06</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-02-21.19:05:39</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <schema id="325" parent="1" name="ict203">
@@ -1182,13 +1182,61 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <column id="337" parent="336" name="username">
+    <table id="337" parent="324" name="coach">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <table id="338" parent="324" name="pack">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <column id="339" parent="336" name="username">
       <DasType>varchar(255)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="338" parent="336" name="password">
+    <column id="340" parent="336" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
+    </column>
+    <column id="341" parent="337" name="nom">
+      <DasType>int(11)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="342" parent="337" name="prenom">
+      <DasType>int(11)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="343" parent="337" name="sexe">
+      <DasType>int(11)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="344" parent="337" name="contact">
+      <DasType>int(11)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="345" parent="337" name="categorie">
+      <DasType>int(11)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="346" parent="338" name="nom">
+      <DasType>int(11)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="347" parent="338" name="categorie">
+      <DasType>int(11)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="348" parent="338" name="description">
+      <DasType>int(11)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="349" parent="338" name="duree">
+      <DasType>int(11)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="350" parent="338" name="prix">
+      <DasType>int(11)|0s</DasType>
+      <Position>5</Position>
     </column>
   </database-model>
 </dataSource>
