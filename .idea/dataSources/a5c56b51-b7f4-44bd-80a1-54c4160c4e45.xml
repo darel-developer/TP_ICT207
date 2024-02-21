@@ -1142,7 +1142,7 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     </collation>
     <schema id="324" parent="1" name="gym">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-02-21.19:24:30</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-02-21.19:34:43</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <schema id="325" parent="1" name="ict203">
@@ -1182,107 +1182,139 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <table id="337" parent="324" name="coach">
+    <table id="337" parent="324" name="client">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <table id="338" parent="324" name="pack">
+    <table id="338" parent="324" name="coach">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <column id="339" parent="336" name="id_admin">
+    <table id="339" parent="324" name="pack">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <column id="340" parent="336" name="id_admin">
       <AutoIncrement>2</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="336" name="username">
+    <column id="341" parent="336" name="username">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="341" parent="336" name="password">
+    <column id="342" parent="336" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="342" parent="336" name="PRIMARY">
+    <index id="343" parent="336" name="PRIMARY">
       <ColNames>id_admin</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="343" parent="336" name="PRIMARY">
+    <key id="344" parent="336" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="344" parent="337" name="id_coach">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
     <column id="345" parent="337" name="nom">
       <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
+      <Position>1</Position>
     </column>
     <column id="346" parent="337" name="prenom">
       <DasType>varchar(255)|0s</DasType>
-      <Position>3</Position>
+      <Position>2</Position>
     </column>
     <column id="347" parent="337" name="sexe">
       <DasType>varchar(255)|0s</DasType>
-      <Position>4</Position>
+      <Position>3</Position>
     </column>
     <column id="348" parent="337" name="contact">
-      <DasType>int(11)|0s</DasType>
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="349" parent="337" name="pack">
+      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="349" parent="337" name="categorie">
+    <column id="350" parent="337" name="coach">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <index id="350" parent="337" name="PRIMARY">
-      <ColNames>id_coach</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="351" parent="337" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="352" parent="338" name="id_pack">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="351" parent="337" name="statuPaiement">
+      <DasType>tinyint(1)|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="352" parent="338" name="id_coach">
+      <AutoIncrement>2</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="353" parent="338" name="nom">
       <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="354" parent="338" name="categorie">
+    <column id="354" parent="338" name="prenom">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="355" parent="338" name="description">
+    <column id="355" parent="338" name="sexe">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="356" parent="338" name="duree">
+    <column id="356" parent="338" name="contact">
       <DasType>int(11)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="357" parent="338" name="prix">
-      <DasType>int(11)|0s</DasType>
+    <column id="357" parent="338" name="categorie">
+      <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
     <index id="358" parent="338" name="PRIMARY">
-      <ColNames>id_pack</ColNames>
+      <ColNames>id_coach</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
     <key id="359" parent="338" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="360" parent="339" name="id_pack">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="361" parent="339" name="nom">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="362" parent="339" name="categorie">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="363" parent="339" name="description">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="364" parent="339" name="duree">
+      <DasType>int(11)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="365" parent="339" name="prix">
+      <DasType>int(11)|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <index id="366" parent="339" name="PRIMARY">
+      <ColNames>id_pack</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="367" parent="339" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

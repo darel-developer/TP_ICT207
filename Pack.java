@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.*;
 
 public class Pack extends JFrame {
     // Définir les informations de connexion à la base de données
@@ -42,7 +43,21 @@ public class Pack extends JFrame {
         rightPanel.setLayout(new GridLayout(6, 2));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-
+        membreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ajoutez ici la logique pour fermer la fenêtre actuelle si nécessaire
+                setVisible(false);
+                frame.dispose(); // Ferme la fenêtre actuelle
+                // Créez une nouvelle instance de AddMember
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Add_member().setVisible(true);
+                    }
+                });
+            }
+        });
 
         packButton.addActionListener(new ActionListener() {
             @Override
