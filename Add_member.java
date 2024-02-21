@@ -46,7 +46,12 @@ public class Add_member {
         JButton rightButton1 = createStyledButton("Right Button 1", "");
         JButton rightButton2 = createStyledButton("Right Button 2", "");
 
+        // Ajouter de l'espace entre les boutons
+        int spaceWidth = 10; // Ajustez la largeur de l'espace selon vos besoins
+        JPanel spacePanel = new JPanel();
+        spacePanel.setPreferredSize(new Dimension(spaceWidth, 1)); // Largeur de l'espace
         rightPanel.add(rightButton1);
+        rightPanel.add(spacePanel);
         rightPanel.add(rightButton2);
 
 
