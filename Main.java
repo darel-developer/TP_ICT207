@@ -11,8 +11,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main extends JFrame {
+    public Main(){
         // Créer une fenêtre pour l'interface
         JFrame frame = new JFrame("Bienvenue dans votre salle de sport LETT");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,49 +122,60 @@ public class Main {
                 new RoundedCornerBorder(radius)
         );
     }
-}
+    static class RoundedCornerBorder implements Border {
+        private final int radius;
 
-class RoundedCornerBorder implements Border {
-    private final int radius;
-
-    public RoundedCornerBorder(int radius) {
-        this.radius = radius;
-    }
-
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-    }
-
-    @Override
-    public Insets getBorderInsets(Component c) {
-        return new Insets(radius, radius, radius, radius);
-    }
-
-    @Override
-    public boolean isBorderOpaque() {
-        return true;
-    }
-
-    // Méthode pour valider les informations d'identification
-    public static boolean validateLogin(String username, String password) {
-        // Connexion à la base de données)
-        String url = "jdbc:mysql://localhost:3306/gym";
-        String user = "root";
-        String dbPassword = "";
-        try (Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
-            String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next(); // Si une ligne correspondante est trouvée, l'authentification est réussie
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        public RoundedCornerBorder(int radius) {
+            this.radius = radius;
         }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(radius, radius, radius, radius);
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
+        // Méthode pour valider les informations d'identification
+        public static boolean validateLogin(String username, String password) {
+            // Connexion à la base de données)
+            String url = "jdbc:mysql://localhost:3306/gym";
+            String user = "root";
+            String dbPassword = "";
+            try (Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
+                String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, username);
+                statement.setString(2, password);
+                ResultSet resultSet = statement.executeQuery();
+                return resultSet.next(); // Si une ligne correspondante est trouvée, l'authentification est réussie
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
     }
+        public static void main(String[] args) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    new Main().setVisible(true);
+                }
+            });
+
+
+        }
+        public void setVisible ( boolean b){
+        }
 
 
 }

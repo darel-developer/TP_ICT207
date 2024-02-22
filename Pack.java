@@ -59,6 +59,23 @@ public class Pack extends JFrame {
             }
         });
 
+        deconnexionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ajoutez ici la logique pour fermer la fenêtre actuelle si nécessaire
+                setVisible(false);
+                frame.dispose(); // Ferme la fenêtre actuelle
+
+                // Créez une nouvelle instance de Main et la rendez visible
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Main().setVisible(true);
+                    }
+                });
+            }
+        });
+
         packButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
