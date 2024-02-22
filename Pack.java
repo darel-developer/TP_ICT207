@@ -11,8 +11,6 @@ public class Pack extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
-    private static int data;
-    private static  int columnNames;
 
     public Pack(){
         JFrame frame = new JFrame("Menu");
@@ -242,79 +240,43 @@ public class Pack extends JFrame {
     }
 
     private static void displayPackList(JPanel panel) {
-        JTable packTable = new JTable();
+        JTextArea packListArea = new JTextArea(20, 40);
+        packListArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(packListArea);
+        scrollPane.setPreferredSize(new Dimension(1000, 100)); // Taille  du JScrollPane
+        panel.add(scrollPane);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "SELECT * FROM pack";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
-            DefaultTableModel tableModel = new DefaultTableModel();
-
-            packTable.setModel(tableModel);
-
-            // Ajoutez chaque ligne directement au modèle de tableau
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            for (int i = 1; i <= columnCount; i++) {
-                tableModel.addColumn(metaData.getColumnName(i));
-            }
-
+            StringBuilder packListText = new StringBuilder();
             while (resultSet.next()) {
-                Vector<Object> row = new Vector<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(resultSet.getObject(i));
-                }
-                tableModel.addRow(row);
+                String nom = resultSet.getString("nom");
+                String categorie = resultSet.getString("categorie");
+                String description = resultSet.getString("description");
+                String duree = resultSet.getString("duree");
+                int prix = resultSet.getInt("prix");
+
+                packListText.append("Nom: ").append(nom).append("\n");
+                packListText.append("Catégorie: ").append(categorie).append("\n");
+                packListText.append("Description: ").append(description).append("\n");
+                packListText.append("Durée: ").append(duree).append("\n");
+                packListText.append("Prix: ").append(prix).append("\n\n");
             }
-
-            // Ajustez la largeur des colonnes en fonction du contenu
-            packTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
-            JScrollPane scrollPane = new JScrollPane(packTable);
-            panel.add(scrollPane, BorderLayout.CENTER);
+            packListArea.setText(packListText.toString());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des packs : " + ex.getMessage());
         }
     }
 
-
-
-
-
-    // Méthode utilitaire pour créer le modèle de tableau à partir d'un ResultSet
-    private static DefaultTableModel buildTableModel(ResultSet resultSet) throws SQLException {
-        ResultSetMetaData metaData = resultSet.getMetaData();
-
-        // Création d'une liste pour stocker les noms de colonnes
-        Vector<String> columnNames = new Vector<>();
-        int columnCount = metaData.getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
-            columnNames.add(metaData.getColumnName(i));
-        }
-
-        // Création d'une liste pour stocker les données du tableau
-        Vector<Vector<Object>> data = new Vector<>();
-        while (resultSet.next()) {
-            Vector<Object> row = new Vector<>();
-            for (int i = 1; i <= columnCount; i++) {
-                row.add(resultSet.getObject(i));
-            }
-            data.add(row);
-        }
-
-        // Création du modèle de tableau avec les données et les noms de colonnes
-        return new DefaultTableModel(data, columnNames);
-    }
-
     private static void displayMemberList(JPanel panel) {
-        JTable packTable = new JTable();
-        JScrollPane scrollPane = new JScrollPane(packTable);
-
-        // Utilisez les contraintes pour indiquer au BorderLayout de remplir tout l'espace disponible
-        panel.add(scrollPane, BorderLayout.CENTER);
+        JTable memberTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(memberTable);
+        scrollPane.setPreferredSize(new Dimension(800, 400));
+        panel.add(scrollPane);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "SELECT * FROM client";
@@ -341,11 +303,12 @@ public class Pack extends JFrame {
                 data.add(row);
             }
 
+            // Création du modèle de tableau avec les données et les noms de colonnes
             DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-            packTable.setModel(tableModel);
+            memberTable.setModel(tableModel);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des packs : " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des membres : " + ex.getMessage());
         }
     }
 
