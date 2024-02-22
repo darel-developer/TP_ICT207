@@ -9,33 +9,33 @@ public class Add_member extends JFrame {
     private static JComboBox<String> packComboBox;
     private static JComboBox<String> coachComboBox;
     private static JComboBox<String> sexeComboBox;
-public Add_member(){
-    JFrame frame = new JFrame("Dashboard Admin");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(800, 500);
+    public Add_member(){
+        JFrame frame = new JFrame("Dashboard Admin");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 500);
 
-    JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-    JPanel leftPanel = new JPanel();
-    leftPanel.setLayout(new GridLayout(10, 1));
-    leftPanel.setBackground(new Color(50, 50, 50));
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(10, 1));
+        leftPanel.setBackground(new Color(50, 50, 50));
 
-    JButton addStandardMember = createStyledButton("Add Standard Member", "./images/new member.png");
-    JButton addPremiumMember = createStyledButton("Add Premium Member", "/path/to/pack.png");
+        JButton addStandardMember = createStyledButton("Add Standard Member", "./images/new member.png");
+        JButton addPremiumMember = createStyledButton("Add Premium Member", "/path/to/pack.png");
 
-    leftPanel.add(addStandardMember);
-    leftPanel.add(addPremiumMember);
+        leftPanel.add(addStandardMember);
+        leftPanel.add(addPremiumMember);
 
-    rightPanel = new JPanel();
-    rightPanel.setLayout(new GridLayout(8, 2));
-    rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        rightPanel = new JPanel();
+        rightPanel.setLayout(new GridLayout(8, 2));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-    mainPanel.add(leftPanel, BorderLayout.WEST);
-    mainPanel.add(rightPanel, BorderLayout.CENTER);
+        mainPanel.add(leftPanel, BorderLayout.WEST);
+        mainPanel.add(rightPanel, BorderLayout.CENTER);
 
-    frame.add(mainPanel);
-    frame.setVisible(true);
-}
+        frame.add(mainPanel);
+        frame.setVisible(true);
+    }
 
     private static JButton createStyledButton(String text, String imagePath) {
         JButton button = new JButton(text);
@@ -111,7 +111,7 @@ public Add_member(){
                 String nom = textFields[0].getText();
                 String prenom = textFields[1].getText();
                 String sexe = (String) sexeComboBox.getSelectedItem();
-                String contact = textFields[3].getText();
+                String contact = textFields[2].getText();
                 String selectedPack = (String) packComboBox.getSelectedItem();
                 String selectedCoach = (String) coachComboBox.getSelectedItem();
 
@@ -162,7 +162,7 @@ public Add_member(){
                 String nom = textFields[0].getText();
                 String prenom = textFields[1].getText();
                 String sexe = (String) sexeComboBox.getSelectedItem();
-                String contact = textFields[3].getText();
+                String contact = textFields[2].getText();
                 String selectedPack = (String) packComboBox.getSelectedItem();
                 String selectedCoach = (String) coachComboBox.getSelectedItem();
 

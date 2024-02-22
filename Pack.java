@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,13 +7,13 @@ import java.sql.*;
 import java.util.*;
 
 public class Pack extends JFrame {
-    // Définir les informations de connexion à la base de données
+    //informations de connexion à la base de données
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
     public Pack(){
-        JFrame frame = new JFrame("Dashboard Admin");
+        JFrame frame = new JFrame("Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
 
@@ -31,6 +32,7 @@ public class Pack extends JFrame {
         JButton listeMemberButton = createStyledButton("Member List", "./images/list of members.png");
         JButton deconnexionButton = createStyledButton("Déconnexion", "./images/logout.png");
 
+        //ajout des boutons au panneau gauche
         leftPanel.add(membreButton);
         leftPanel.add(packButton);
         leftPanel.add(addCoachButton);
@@ -39,6 +41,7 @@ public class Pack extends JFrame {
         leftPanel.add(listeMemberButton);
         leftPanel.add(deconnexionButton);
 
+        //creation du panneau droit
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(6, 2));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -96,6 +99,25 @@ public class Pack extends JFrame {
             }
         });
 
+        listeMemberButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                displayMemberList(rightPanel);
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
+
+        listeCoachButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                displayCoachList(rightPanel);
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
         addCoachButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -221,8 +243,8 @@ public class Pack extends JFrame {
         JTextArea packListArea = new JTextArea(20, 40);
         packListArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(packListArea);
-        panel.setLayout(new BorderLayout()); // Utilisation de BorderLayout
-        panel.add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre
+        scrollPane.setPreferredSize(new Dimension(1000, 100)); // Taille  du JScrollPane
+        panel.add(scrollPane);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "SELECT * FROM pack";
@@ -250,6 +272,85 @@ public class Pack extends JFrame {
         }
     }
 
+    private static void displayMemberList(JPanel panel) {
+        JTable memberTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(memberTable);
+        scrollPane.setPreferredSize(new Dimension(800, 400));
+        panel.add(scrollPane);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM client";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Récupération des métadonnées pour obtenir le nombre de colonnes
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Création d'une liste pour stocker les noms de colonnes
+            Vector<String> columnNames = new Vector<>();
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames.add(metaData.getColumnName(i));
+            }
+
+            // Création d'une liste pour stocker les données du tableau
+            Vector<Vector<Object>> data = new Vector<>();
+            while (resultSet.next()) {
+                Vector<Object> row = new Vector<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(resultSet.getObject(i));
+                }
+                data.add(row);
+            }
+
+            // Création du modèle de tableau avec les données et les noms de colonnes
+            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+            memberTable.setModel(tableModel);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des membres : " + ex.getMessage());
+        }
+    }
+
+    private static void displayCoachList(JPanel panel) {
+        JTable coachTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(coachTable);
+        scrollPane.setPreferredSize(new Dimension(800, 400));
+        panel.add(scrollPane);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM coach";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Récupération des métadonnées pour obtenir le nombre de colonnes
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Création d'une liste pour stocker les noms de colonnes
+            Vector<String> columnNames = new Vector<>();
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames.add(metaData.getColumnName(i));
+            }
+
+            // Création d'une liste pour stocker les données du tableau
+            Vector<Vector<Object>> data = new Vector<>();
+            while (resultSet.next()) {
+                Vector<Object> row = new Vector<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(resultSet.getObject(i));
+                }
+                data.add(row);
+            }
+
+            // Création du modèle de tableau avec les données et les noms de colonnes
+            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+            coachTable.setModel(tableModel);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la récupération des coachs : " + ex.getMessage());
+        }
+    }
 
 
 
